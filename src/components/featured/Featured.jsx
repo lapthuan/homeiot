@@ -35,7 +35,7 @@ const Featured = ({ data }) => {
           <CircularProgressbar
             // value={dt[0].doam ? dt[0].doam : 0}
             value={dt[0] ? dt[0].doam : 0}
-            text={dt[0] ? dt[0].doam + "℃" : 0 + "℃"}
+            text={dt[0] ? dt[0].doam + "%" : 0 + "%"}
             strokeWidth={8}
           />
         </div>

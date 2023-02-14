@@ -22,9 +22,9 @@ const ExampleChart = () => {
         .then(async (result) => {
           await setWeatherData(result.data);
         })
-        .catch((err) => {});
+        .catch((err) => { });
     };
-    console.log(weatherData);
+    //console.log(weatherData);
     setInterval(() => {
       fetchData();
     }, 1000);
@@ -32,13 +32,13 @@ const ExampleChart = () => {
 
   const data = Array.isArray(weatherData)
     ? weatherData
-        .map((item, key) => ({
-          key: key,
-          name: item.createAt ? item.createAt : " ",
-          doam: item.doam,
-          nhietdo: item.nhietdo,
-        }))
-        .slice(-5)
+      .map((item, key) => ({
+        key: key,
+        name: item.createAt ? item.createAt : " ",
+        doam: item.doam,
+        nhietdo: item.nhietdo,
+      }))
+      .slice(-5)
     : [];
   return (
     <LineChart

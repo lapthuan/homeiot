@@ -33,7 +33,10 @@ const List = () => {
       )
       .then((result) => {
         toast({ status });
-        toast("Successfully");
+        if(status == '1'){
+          toast("Đã mở");
+        }else toast("Đã tắt");
+        
       })
       .catch((err) => {
         toast(err.message);
@@ -61,6 +64,7 @@ const List = () => {
 
   return loading ? (
     <TableContainer component={Paper} className="table container mx-auto">
+       <ToastContainer />
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -88,7 +92,7 @@ const List = () => {
                     </span>
                   </TableCell>
                   <TableCell>
-                    <ToastContainer />
+                   
                     <Button
                       className={data.status === 1 ? "status on" : "status off"}
                       onClick={() => {

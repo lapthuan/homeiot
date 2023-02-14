@@ -11,36 +11,39 @@ import { AppProvider } from "../../context/AppContext";
 const Home = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [newWeatherData, seNewtWeatherData] = useState([]);
- 
+
   useEffect(() => {
-    setInterval(() => {
-      const fetchData = async () => {
-        await axios
-          .get(
-            "https://iotsmarthome-5d008-default-rtdb.firebaseio.com/iotdata/dht.json"
-          )
-          .then(async (result) => {
-            await setWeatherData(result.data);
-          })
-          .catch((err) => {});
-      };
 
-      const fetchNewData = async () => {
-        await axios
-          .get(
-            "https://iotsmarthome-5d008-default-rtdb.firebaseio.com/iotdata.json"
-          )
-          .then(async (result) => {
-            seNewtWeatherData(result.data);
-          })
-          .catch((err) => {});
-      };
+    const fetchData = async () => {
+      await axios
+        .get(
+          "https://iotsmarthome-5d008-default-rtdb.firebaseio.com/iotdata/dht.json"
+        )
+        .then(async (result) => {
+          await setWeatherData(result.data);
+        })
+        .catch((err) => { });
+    };
 
-      fetchData();
-      fetchNewData();
+    const fetchNewData = async () => {
+      await axios
+        .get(
+          "https://iotsmarthome-5d008-default-rtdb.firebaseio.com/iotdata.json"
+        )
+        .then(async (result) => {
+          seNewtWeatherData(result.data);
+        })
+        .catch((err) => { });
+    };
 
-      clearInterval(setInterval);
-    }, 1000);
+    fetchData();
+    fetchNewData();
+
+    const timeOutFetchData = setTimeout(fetchData(), 5000);
+    const timeOutFetchDataNew = setTimeout(fetchNewData(), 5000);
+    clearTimeout(timeOutFetchData);
+    clearTimeout(timeOutFetchDataNew);
+
   }, []);
 
   return (

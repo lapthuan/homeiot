@@ -12,7 +12,6 @@ const Widget = ({ type, data, newdata }) => {
   const dt = data.slice(-1);
   const [loading, setLoading] = useState(true);
   let dulieu;
-
   useEffect(() => {
     newdata ? setLoading(false) : setLoading(true);
   });
@@ -23,10 +22,10 @@ const Widget = ({ type, data, newdata }) => {
         title: "Nhiệt độ",
         isMoney: data[0] ? true : false,
         query: "users",
-        amount: data ? (
-          data[0] ? (
-            data[0].nhietdo
-          ) : data[0] ? (
+        amount: newdata.dhtsensor ? (
+          newdata.dhtsensor ? (
+            newdata.dhtsensor.nhietdo
+          ) : 0 ? (
             <PulseLoader color="#36d7b7" />
           ) : (
             <PulseLoader color="#36d7b7" />
@@ -49,9 +48,9 @@ const Widget = ({ type, data, newdata }) => {
       dulieu = {
         title: "Độ ẩm",
         isMoney: data[0] ? true : false,
-        amount: data ? (
-          data[0] ? (
-            data[0].doam
+        amount: newdata.dhtsensor ? (
+          newdata.dhtsensor ? (
+            newdata.dhtsensor.doam
           ) : data[0] ? (
             <PulseLoader color="#36d7b7" />
           ) : (
@@ -76,9 +75,9 @@ const Widget = ({ type, data, newdata }) => {
         title: "Cảnh báo nhiệt đọ",
         isMoney: false,
         amount: newdata ? (
-          newdata.Flame == 0 ? (
+          newdata.Flame === 0 ? (
             "Bình thường"
-          ) : newdata.Flame == 1 ? (
+          ) : newdata.Flame === 1 ? (
             "Cảnh báo"
           ) : (
             <PulseLoader color="#36d7b7" />
@@ -129,14 +128,14 @@ const Widget = ({ type, data, newdata }) => {
       <div className="left">
         <span className="title">{dulieu.title}</span>
         <span className="counter">
-          {dulieu.amount} {dulieu.isMoney && "°C"}
+          {dulieu.amount} {dulieu.isMoney && dulieu.title === "Độ ẩm" ? "%" : dulieu.isMoney && dulieu.title === "Nhiệt độ" ? "°C" : " "}
         </span>
         <span className="link">{dulieu.link}</span>
       </div>
       <div className="right">
         <div className={`percentage ${diff < 0 ? "negative" : "positive"}`}>
           {diff < 0 ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
-          {diff} %
+          {diff}
         </div>
         {dulieu.icon}
       </div>
